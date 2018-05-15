@@ -32,3 +32,6 @@ hs_err_pid*
 *.springBeans
 *distanceMatrix.txt
 *nohup.out
+
+#index files
+index/geonames/
