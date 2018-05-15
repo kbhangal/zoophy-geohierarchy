@@ -129,7 +129,7 @@ public class Main {
 	
 	private static String retreiveName(int id) {
 		if(mapIDNodes.get(id).getLocation().getName()!=null)
-			return SimplifyCountry(mapIDNodes.get(id).getLocation().getName());
+			return simplifyLocationName(mapIDNodes.get(id).getLocation().getName());
 		else {
 			log.info("******complete_hierarchy: population missing "+ id);
 			return "";
@@ -161,7 +161,7 @@ public class Main {
 				int countryId = geoTree.getCountryLookup().get(countryCode);
 				GeoNameNode countryNode = geoTree.getMapIDNodes().get(countryId);
 				if(countryNode!=null) {
-					location.setCountry(SimplifyCountry(countryNode.getLocation().getName()));
+					location.setCountry(simplifyLocationName(countryNode.getLocation().getName()));
 				}else {
 					location.setCountry("NA");
 					log.info("******complete_hierarchy: country missing "+ id);
@@ -221,7 +221,7 @@ public class Main {
 		if(mapIDNodes.get(currentID).getLocation()!=null) {
 			GeoNameLocation location = mapIDNodes.get(currentID).getLocation();
 			if(location.getType()!=null && location.getType().equalsIgnoreCase("ADM1")) {
-				mapIDNodes.get(nodeID).getLocation().setState(location.getName());
+				mapIDNodes.get(nodeID).getLocation().setState(simplifyLocationName(location.getName()));
 			}
 		}
 	}
@@ -255,7 +255,7 @@ public class Main {
 			hierarchy.append(comma);
 			comma = ", ";
 			if(mapIDNodes.get(n).getLocation().getName()!=null)
-				hierarchy.append(SimplifyCountry(mapIDNodes.get(n).getLocation().getName()));	
+				hierarchy.append(simplifyLocationName(mapIDNodes.get(n).getLocation().getName()));	
 			else {
 				log.info("******complete_hierarchy: name missing "+ n);
 			}
@@ -352,7 +352,7 @@ public class Main {
 	/**
 	 * Simplify country name
 	 */
-	private static String SimplifyCountry(String country_name) {
+	private static String simplifyLocationName(String country_name) {
 		if (country_name != null) {
 			if (country_name.contains("Great Britain")) {
 				country_name = "United Kingdom";
