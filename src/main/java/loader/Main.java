@@ -220,7 +220,7 @@ public class Main {
 	private static void retreiveStateName(int nodeID, int currentID) {
 		if(mapIDNodes.get(currentID).getLocation()!=null) {
 			GeoNameLocation location = mapIDNodes.get(currentID).getLocation();
-			if(location.getType()!=null && location.getType().equalsIgnoreCase("ADM1")) {
+			if(location.getType()!=null && location.getType().equalsIgnoreCase("ADM1")) {				//primary administrative division of a country like state/province
 				mapIDNodes.get(nodeID).getLocation().setState(simplifyLocationName(location.getName()));
 			}
 		}
