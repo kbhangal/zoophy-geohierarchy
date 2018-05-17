@@ -210,7 +210,11 @@ public class Main {
 		if(Collections.disjoint(ancestors, continents)) {			
 			 int id = assignContinent(ancestors);
 			 if(id!=1) {
-				 parentsList.add(id);
+				 int continentsPosiiton = parentsList.size();
+				 if(continentsPosiiton!=0) {
+					 continentsPosiiton -= 1;
+				 }
+				 parentsList.add(continentsPosiiton,id);
 			 }
 		}
 		
