@@ -17,6 +17,8 @@ import java.util.Set;
 import java.util.StringJoiner;
 import java.util.logging.Logger;
 
+import org.omg.PortableInterceptor.LOCATION_FORWARD;
+
 import hierarchy.GeoNameLocation;
 import hierarchy.GeoNameNode;
 import hierarchy.GeoNameTree;
@@ -71,9 +73,11 @@ public class Main {
 						LuceneObject luceneObject = new LuceneObject();
 						node = geoTree.getNode(id);
 						try {
+							setLocationState(node);
 							List<Integer> parentsID = generateAncestorIdList(node);
 							String parentsName = generateAncestorNameList(parentsID);
 							String name = retreiveName(id);
+							
 							
 							luceneObject.setId(id);
 							luceneObject.setName(name);
@@ -104,6 +108,19 @@ public class Main {
 		//writeToFile(arrayList);
 		WriteToLucene.toLucene(arrayList);
 		
+	}
+	
+	//if location is a state, set state name as state field
+	private static void setLocationState(Node node) {
+		Integer nodeID = node.getID();
+		GeoNameLocation location = mapIDNodes.get(nodeID).getLocation();
+		if(location!=null) {
+			if(location.getType().equalsIgnoreCase("ADM1")) {			//primary administrative division of a country like state/province
+				String name = location.getName();
+				location.setState(name);
+				mapIDNodes.get(nodeID).setLocation(location);
+			}
+		}
 	}
 	
 	private static void loadProperties() {
@@ -204,7 +221,7 @@ public class Main {
 		for(Node n: node.getAncestors()) {
 			ancestors.add(n.getID());
 			parentsList.add(n.getID());	
-			retreiveStateName(nodeID,n.getID());
+			retrieveStateName(nodeID,n.getID());
 		}
 		//if there is no continent in its ancestors
 		if(Collections.disjoint(ancestors, continents)) {			
@@ -221,11 +238,14 @@ public class Main {
 		return parentsList;
 	}
 	
-	private static void retreiveStateName(int nodeID, int currentID) {
-		if(mapIDNodes.get(currentID).getLocation()!=null) {
-			GeoNameLocation location = mapIDNodes.get(currentID).getLocation();
-			if(location.getType()!=null && location.getType().equalsIgnoreCase("ADM1")) {				//primary administrative division of a country like state/province
-				mapIDNodes.get(nodeID).getLocation().setState(simplifyLocationName(location.getName()));
+	//if location is not a state, retrieve state from ancestors
+	private static void retrieveStateName(int nodeID, int currentID) {
+		if(mapIDNodes.get(nodeID).getLocation()!=null && mapIDNodes.get(nodeID).getLocation().getState()==null) {
+			if(mapIDNodes.get(currentID).getLocation()!=null) {
+				GeoNameLocation location = mapIDNodes.get(currentID).getLocation();
+				if(location.getType()!=null && location.getType().equalsIgnoreCase("ADM1")) {				
+					mapIDNodes.get(nodeID).getLocation().setState(simplifyLocationName(location.getName()));
+				}
 			}
 		}
 	}
