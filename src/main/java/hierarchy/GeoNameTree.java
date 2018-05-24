@@ -83,7 +83,7 @@ public class GeoNameTree extends Tree {
 					GeoNameLocation g = new GeoNameLocation();
 					g.setId(Integer.parseInt(geoname[0]));
 					if(f_code.equalsIgnoreCase("PCLI")) {								//country
-						g.setName(geoname[1] + " (" + geoname[8] + ") ");
+						g.setName(geoname[1] + " (" + geoname[8] + ")");
 					}else {
 						g.setName(geoname[1]);
 					}

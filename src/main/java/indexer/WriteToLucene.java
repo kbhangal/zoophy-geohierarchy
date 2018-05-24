@@ -57,7 +57,9 @@ public class WriteToLucene {
 	private static void setupWriter() {
 		try {
 			Directory dir = FSDirectory.open(Paths.get(INDEX_PATH));
-			List<String> stops = Arrays.asList("####","****"); 
+			List<String> stops = Arrays.asList("a", "and", "are", "but", "by",
+					"for", "if","into", "not", "such","that", "the", "their", 
+					"then", "there", "these","they", "this", "was", "will", "with"); 
 			CharArraySet stopWordsOverride = new CharArraySet(stops, true);
 			Analyzer analyzer = new StandardAnalyzer(stopWordsOverride);
 			IndexWriterConfig iwc = new IndexWriterConfig(analyzer);

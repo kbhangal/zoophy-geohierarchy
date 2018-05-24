@@ -379,25 +379,25 @@ public class Main {
 	private static String simplifyLocationName(String country_name) {
 		if (country_name != null) {
 			if (country_name.contains("Great Britain")) {
-				country_name = "United Kingdom";
+				country_name = "United Kingdom (UK)";
 			}
-			else if (country_name.equalsIgnoreCase("Russian Federation")) {
-				country_name = "Russia";
+			else if (country_name.contains("Russian Federation")) {
+				country_name = "Russia (RU)";
 			}
-			else if (country_name.equalsIgnoreCase("Repubblica Italiana")) {
-				country_name = "Italy";
+			else if (country_name.contains("Repubblica Italiana")) {
+				country_name = "Italy (IT)";
 			}
-			else if (country_name.equalsIgnoreCase("Polynésie Française")) {
-				country_name = "French Polynesia";
+			else if (country_name.contains("Polynésie Française")) {
+				country_name = "French Polynesi (PF)";
 			}
-			else if (country_name.equalsIgnoreCase("Lao People’s Democratic Republic")) {
-				country_name = "Laos";
+			else if (country_name.contains("Lao People’s Democratic Republic")) {
+				country_name = "Laos (LA)";
 			}
-			else if (country_name.equalsIgnoreCase("Argentine Republic")){
-				country_name = "Argentina";
+			else if (country_name.contains("Argentine Republic")){
+				country_name = "Argentina (AR)";
 			}
-			else if (country_name.equalsIgnoreCase("Portuguese Republic")){
-				country_name = "Portugal";
+			else if (country_name.contains("Portuguese Republic")){
+				country_name = "Portugal (PT)";
 			}
 			else {
 				if (country_name.contains("Republic of ")) {
