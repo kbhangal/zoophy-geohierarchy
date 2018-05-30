@@ -127,7 +127,7 @@ public class Main {
 		Properties prop = new Properties();
 		InputStream input = null;
 		try {
-			input = new FileInputStream("config.properties");
+			input = new FileInputStream("config/config.properties");
 			prop.load(input);
 			dir = prop.getProperty("hierarchy.location");
 
